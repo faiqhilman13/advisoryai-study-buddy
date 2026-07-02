@@ -18,7 +18,10 @@
       --ink-soft: rgba(27, 22, 16, 0.72);
       --ink-faint: rgba(27, 22, 16, 0.5);
       --line-ink: rgba(27, 22, 16, 0.32);
-      --line-desk: rgba(242, 235, 218, 0.14);
+      --line-desk: rgba(var(--desk-ink-rgb), 0.14);
+      --desk-ink: #f2ebda;
+      --desk-ink-bright: #faf5e8;
+      --desk-ink-rgb: 242, 235, 218;
       --red: #d2452e;
       --red-bright: #ef6a4c;
       --red-deep: #8f2417;
@@ -37,6 +40,34 @@
       --hand: "Caveat", "Bradley Hand", "Comic Sans MS", cursive;
     }
 
+    /* light theme: desk turns to daylight paper, desk ink flips dark */
+    body.light {
+      color-scheme: light;
+      --desk: #eae0c8;
+      --desk-2: #e2d6b9;
+      --desk-ink: #241d13;
+      --desk-ink-bright: #14100a;
+      --desk-ink-rgb: 36, 29, 19;
+      --line-desk: rgba(36, 29, 19, 0.2);
+      --red-bright: #ac3418;
+      --shadow-panel: 9px 10px 0 rgba(36, 29, 19, 0.16);
+    }
+
+    body.light nav button[aria-current="true"] {
+      background: var(--ink);
+      color: var(--paper-bright);
+      border-color: var(--ink);
+    }
+
+    body.light nav button[aria-current="true"] span {
+      border-color: rgba(250, 245, 232, 0.35);
+      color: rgba(250, 245, 232, 0.75);
+    }
+
+    body.light .domain-row .progress-fill {
+      background: color-mix(in srgb, var(--bar, #d08c1d) 70%, var(--ink));
+    }
+
     * { box-sizing: border-box; }
 
     html { scroll-behavior: smooth; }
@@ -44,13 +75,14 @@
     body {
       margin: 0;
       border-top: 6px solid var(--red);
-      color: var(--paper);
+      color-scheme: dark;
+      color: var(--desk-ink);
       font: 16px/1.55 var(--sans);
       background:
         radial-gradient(1100px 520px at 10% -8%, rgba(210, 69, 46, 0.08), transparent 62%),
         radial-gradient(900px 480px at 90% -10%, rgba(165, 104, 11, 0.06), transparent 60%),
-        linear-gradient(rgba(242, 235, 218, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(242, 235, 218, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(var(--desk-ink-rgb), 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--desk-ink-rgb), 0.03) 1px, transparent 1px),
         var(--desk);
       background-size: auto, auto, 44px 44px, 44px 44px, auto;
       background-attachment: fixed;
@@ -127,7 +159,7 @@
       top: 0;
       height: 100vh;
       padding: 26px 20px;
-      background: linear-gradient(180deg, var(--desk-2), #171209);
+      background: linear-gradient(180deg, var(--desk-2), var(--desk));
       border-right: 1px solid var(--line-desk);
       overflow: auto;
       scrollbar-width: thin;
@@ -173,7 +205,7 @@
       font-size: 23px;
       line-height: 1.05;
       letter-spacing: 0.01em;
-      color: var(--paper);
+      color: var(--desk-ink);
     }
 
     .small {
@@ -203,7 +235,7 @@
       background: transparent;
       border: 1px solid transparent;
       border-radius: var(--radius);
-      color: rgba(242, 235, 218, 0.72);
+      color: rgba(var(--desk-ink-rgb), 0.72);
       font-family: var(--mono);
       font-size: 12px;
       font-weight: 500;
@@ -217,21 +249,21 @@
       content: counter(mode, decimal-leading-zero);
       flex: none;
       font-size: 10px;
-      color: rgba(242, 235, 218, 0.34);
+      color: rgba(var(--desk-ink-rgb), 0.34);
     }
 
     nav button span {
       margin-left: auto;
       padding: 1px 8px;
-      border: 1px solid rgba(242, 235, 218, 0.22);
+      border: 1px solid rgba(var(--desk-ink-rgb), 0.22);
       border-radius: 999px;
       font-size: 10px;
-      color: rgba(242, 235, 218, 0.55);
+      color: rgba(var(--desk-ink-rgb), 0.55);
     }
 
     nav button:hover {
-      color: var(--paper);
-      border-color: rgba(242, 235, 218, 0.2);
+      color: var(--desk-ink);
+      border-color: rgba(var(--desk-ink-rgb), 0.2);
     }
 
     nav button[aria-current="true"] {
@@ -248,15 +280,42 @@
       color: rgba(27, 22, 16, 0.6);
     }
 
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 40px;
+      margin: -10px 0 16px;
+      padding: 9px 12px;
+      background: transparent;
+      border: 1px solid rgba(var(--desk-ink-rgb), 0.22);
+      border-radius: var(--radius);
+      color: rgba(var(--desk-ink-rgb), 0.72);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .theme-toggle::after { content: "\25D0"; font-size: 15px; line-height: 1; }
+
+    .theme-toggle:hover {
+      color: var(--desk-ink);
+      border-color: var(--red);
+    }
+
     .scorebox {
       border: 1px solid var(--line-desk);
       border-radius: var(--radius);
       padding: 16px;
-      background: linear-gradient(180deg, #1c1710, #181309);
+      background: linear-gradient(180deg, var(--desk-2), var(--desk));
       animation: rise 0.5s 0.25s both;
     }
 
-    .scorebox .kicker { color: rgba(242, 235, 218, 0.5); }
+    .scorebox .kicker { color: rgba(var(--desk-ink-rgb), 0.5); }
 
     .scoregrid {
       display: grid;
@@ -267,7 +326,7 @@
 
     .metric {
       padding: 12px 12px 10px;
-      background: rgba(242, 235, 218, 0.045);
+      background: rgba(var(--desk-ink-rgb), 0.045);
       border: 1px solid var(--line-desk);
       border-radius: var(--radius);
       min-height: 70px;
@@ -280,7 +339,7 @@
       font-size: 26px;
       line-height: 1;
       margin-bottom: 7px;
-      color: var(--paper);
+      color: var(--desk-ink);
       font-variant-numeric: tabular-nums;
     }
 
@@ -290,7 +349,7 @@
       font-family: var(--mono);
       font-size: 9px;
       letter-spacing: 0.18em;
-      color: rgba(242, 235, 218, 0.45);
+      color: rgba(var(--desk-ink-rgb), 0.45);
       text-transform: uppercase;
     }
 
@@ -303,7 +362,7 @@
       text-transform: uppercase;
       letter-spacing: 0.22em;
       margin-bottom: 8px;
-      color: rgba(242, 235, 218, 0.5);
+      color: rgba(var(--desk-ink-rgb), 0.5);
     }
 
     .hero .kicker,
@@ -330,12 +389,12 @@
 
     .ghost {
       background: transparent;
-      border: 1px solid rgba(242, 235, 218, 0.32);
-      color: rgba(242, 235, 218, 0.8);
+      border: 1px solid rgba(var(--desk-ink-rgb), 0.32);
+      color: rgba(var(--desk-ink-rgb), 0.8);
     }
 
     .ghost:hover {
-      color: var(--paper);
+      color: var(--desk-ink);
       border-color: var(--red);
       background: rgba(210, 69, 46, 0.1);
     }
@@ -400,7 +459,7 @@
       line-height: 0.93;
       letter-spacing: -0.01em;
       max-width: 800px;
-      color: var(--paper);
+      color: var(--desk-ink-bright);
       animation: rise 0.55s 0.12s both;
     }
 
@@ -413,7 +472,7 @@
       max-width: 740px;
       font-size: 17px;
       margin-top: 20px;
-      color: rgba(242, 235, 218, 0.68);
+      color: rgba(var(--desk-ink-rgb), 0.68);
       animation: rise 0.55s 0.22s both;
     }
 
@@ -446,9 +505,9 @@
     .progress-bar {
       position: relative;
       height: 12px;
-      border: 1px solid rgba(242, 235, 218, 0.28);
+      border: 1px solid rgba(var(--desk-ink-rgb), 0.28);
       border-radius: 0;
-      background: rgba(242, 235, 218, 0.07);
+      background: rgba(var(--desk-ink-rgb), 0.07);
       overflow: hidden;
     }
 
@@ -561,7 +620,7 @@
       font-weight: 400;
       font-size: clamp(34px, 4vw, 54px);
       line-height: 0.98;
-      color: var(--paper);
+      color: var(--desk-ink);
     }
 
     .section-head h2::after { content: "."; color: var(--red-bright); }
@@ -1321,7 +1380,7 @@
     .footer {
       border-top: 1px solid var(--line-desk);
       padding: 26px 0 8px;
-      color: rgba(242, 235, 218, 0.5);
+      color: rgba(var(--desk-ink-rgb), 0.5);
       font-family: var(--mono);
       font-size: 10px;
       text-transform: uppercase;
@@ -1401,6 +1460,8 @@
         <button data-view="products">Map <span>14</span></button>
         <button data-view="sources">Sources <span>25</span></button>
       </nav>
+
+      <button class="theme-toggle" id="themeToggle" aria-pressed="false">Light mode</button>
 
       <div class="scorebox">
         <div class="kicker">Run score</div>
@@ -3302,6 +3363,18 @@
       `).join("");
     }
 
+    const THEME_KEY = "aiFieldDeckTheme";
+    function applyTheme(theme) {
+      document.body.classList.toggle("light", theme === "light");
+      $("themeToggle").textContent = theme === "light" ? "Dark mode" : "Light mode";
+      $("themeToggle").setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+    }
+    $("themeToggle").addEventListener("click", () => {
+      const next = document.body.classList.contains("light") ? "dark" : "light";
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    });
+
     document.querySelectorAll("nav button").forEach(button => button.addEventListener("click", () => setView(button.dataset.view)));
     $("startTimer").addEventListener("click", startGrillTimer);
     $("nextGrillTop").addEventListener("click", nextGrill);
@@ -3370,6 +3443,7 @@
       setView(views[Math.floor(Math.random() * views.length)]);
     });
 
+    applyTheme(localStorage.getItem(THEME_KEY) || "dark");
     initDomainBars();
     renderGrill();
     renderFlash();
