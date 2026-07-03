@@ -1,0 +1,6 @@
+# Netlify configuration for continuous deployment from GitHub.
+# This is a static, no-build site (single index.html + challenges.js data file),
+# so there is no build command — Netlify just publishes the repo root as-is.
+[build]
+  publish = "."
+  command = ""
