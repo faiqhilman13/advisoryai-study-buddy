@@ -1561,6 +1561,12 @@
     }
     .trap-flag b { color: color-mix(in srgb, var(--danger) 85%, var(--ink)); }
     .grill-out { margin-top: 14px; display: none; }
+    /* Long LLM responses scroll inside a fixed window instead of stretching the page. */
+    .grill-scroll { max-height: 50vh; overflow-y: auto; overflow-x: hidden; padding-right: 6px; overscroll-behavior: contain; }
+    #decisionBody { max-height: 62vh; overflow-y: auto; overflow-x: hidden; padding-right: 4px; overscroll-behavior: contain; }
+    .grill-scroll::-webkit-scrollbar, #decisionBody::-webkit-scrollbar { width: 9px; }
+    .grill-scroll::-webkit-scrollbar-thumb, #decisionBody::-webkit-scrollbar-thumb { background: rgba(var(--ink-rgb), 0.28); border-radius: 6px; }
+    .grill-scroll::-webkit-scrollbar-track, #decisionBody::-webkit-scrollbar-track { background: transparent; }
     .grill-out.show { display: block; }
     .grill-verdict { font-family: var(--mono); font-size: 12.5px; border: 1px solid var(--line-ink); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 10px 12px; margin-bottom: 12px; }
     .grill-item { border-top: 1px solid var(--line-ink); padding: 11px 0; }
@@ -3832,7 +3838,7 @@
           ${it.critique ? `<div class="gc">${esc(it.critique)}</div>` : ""}
           ${it.better ? `<div class="gb"><b>${live ? "Better:" : "Answer to give:"}</b> ${esc(it.better)}</div>` : ""}
         </div>`).join("");
-      out.innerHTML = `<div class="grill-verdict">${live ? "⚡ " : ""}${esc(data.verdict || "")}${data.score != null ? ` · <b>${esc(String(data.score))}/100</b>` : ""}</div>` + items +
+      out.innerHTML = `<div class="grill-scroll"><div class="grill-verdict">${live ? "⚡ " : ""}${esc(data.verdict || "")}${data.score != null ? ` · <b>${esc(String(data.score))}/100</b>` : ""}</div>` + items + `</div>` +
         `<div class="defend"><div class="small">Defend your reasoning — push back and get grilled harder</div><textarea id="designDefense" placeholder="e.g. 'pgvector can't scale past X so I chose a managed DB because…'"></textarea><div class="controls" style="margin-top:0"><button class="ghost" id="designPush">Push back</button></div></div>`;
       out.classList.add("show");
       $("designPush").addEventListener("click", () => { const d = $("designDefense").value.trim(); if (d) runGrill(d); });
