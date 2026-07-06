@@ -1456,34 +1456,37 @@
     /* On the Design tab, drop the study-deck hero so the canvas fills the main area. */
     body.view-design .hero { display: none; }
     body.view-design #design { margin-top: 2px; }
-    .design-brief-panel { margin-bottom: 16px; }
-    .design-title { font-family: var(--display); font-size: 20px; margin: 8px 0 8px; }
+    /* Design-tab panels carry no utility padding class — give them real interior space. */
+    #design .panel { padding: 20px 22px; }
+    #design .panel > .kicker { margin-bottom: 12px; }
+    .design-brief-panel { margin-bottom: 18px; }
+    .design-title { font-family: var(--display); font-size: 20px; margin: 10px 0 8px; }
     .design-select {
       font-family: var(--mono); font-size: 12px; background: var(--paper-bright); color: var(--ink);
       border: 1px solid var(--line-ink); border-radius: var(--radius); padding: 7px 10px; max-width: 260px;
     }
-    .constraints { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .constraints { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
     .constraint {
-      font-family: var(--mono); font-size: 11px; color: var(--ink-soft);
+      font-family: var(--mono); font-size: 11px; color: var(--ink-soft); line-height: 1.5;
       background: var(--paper-bright); border: 1px solid var(--line-ink);
-      border-left: 3px solid var(--amber); border-radius: var(--radius); padding: 5px 9px;
+      border-left: 3px solid var(--amber); border-radius: var(--radius); padding: 7px 11px;
     }
     .constraint::before { content: "\25B8 "; color: var(--amber); }
 
     .design-main { margin-bottom: 18px; }
-    .design-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+    .design-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
 
     .stage-flow {
-      display: flex; flex-wrap: wrap; align-items: stretch; gap: 6px;
-      padding: 10px; border: 1px dashed var(--line-ink); border-radius: var(--radius);
+      display: flex; flex-wrap: wrap; align-items: stretch; gap: 14px;
+      padding: 18px; border: 1px dashed var(--line-ink); border-radius: var(--radius);
       background: radial-gradient(circle at 1px 1px, rgba(var(--ink-rgb), 0.08) 1px, transparent 0);
       background-size: 22px 22px; min-height: 120px;
     }
     .stage-box {
-      position: relative; width: 170px; box-sizing: border-box; cursor: pointer;
+      position: relative; width: 186px; box-sizing: border-box; cursor: pointer;
       background: var(--paper); border: 1px solid var(--line-ink); border-top: 3px solid var(--stagecol, var(--ink-faint));
-      border-radius: var(--radius); padding: 10px 10px 10px; box-shadow: 0 2px 8px rgba(0,0,0,.22);
-      display: flex; flex-direction: column; gap: 6px; transition: border-color .12s ease, transform .12s ease;
+      border-radius: var(--radius); padding: 13px 14px; box-shadow: 0 2px 8px rgba(0,0,0,.22);
+      display: flex; flex-direction: column; gap: 7px; transition: border-color .12s ease, transform .12s ease;
     }
     .stage-box:hover { transform: translateY(-2px); }
     .stage-box.selected { outline: 2px solid var(--accent); outline-offset: 1px; }
@@ -1494,8 +1497,8 @@
     .stage-name { font-family: var(--display); font-size: 13px; font-weight: 600; line-height: 1.2; padding-right: 16px; }
     .stage-choice { font-family: var(--mono); font-size: 10.5px; color: var(--ink-soft); line-height: 1.35; min-height: 14px; }
     .stage-choice.unset { color: var(--accent-bright); }
-    .stage-verdict { position: absolute; top: 9px; right: 9px; font-size: 12px; font-family: var(--mono); }
-    .stage-controls { display: flex; gap: 4px; margin-top: 4px; }
+    .stage-verdict { position: absolute; top: 12px; right: 12px; font-size: 12px; font-family: var(--mono); }
+    .stage-controls { display: flex; gap: 5px; margin-top: auto; padding-top: 8px; }
     .stage-controls button {
       font-family: var(--mono); font-size: 11px; line-height: 1; width: 24px; height: 20px; cursor: pointer;
       background: var(--paper-bright); color: var(--ink-soft); border: 1px solid var(--line-ink); border-radius: 2px;
@@ -1517,39 +1520,39 @@
     .add-chip:hover { border-color: var(--accent); }
     .add-chip::before { content: "+ "; color: var(--accent); }
 
-    .design-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+    .design-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
 
-    .decision-stage-name { font-family: var(--display); font-size: 17px; margin: 6px 0 2px; }
-    .decision-prompt { color: var(--ink-soft); font-size: 13px; margin-bottom: 12px; }
-    .opts { display: grid; gap: 8px; }
+    .decision-stage-name { font-family: var(--display); font-size: 17px; margin: 0 0 4px; }
+    .decision-prompt { color: var(--ink-soft); font-size: 13px; margin-bottom: 14px; }
+    .opts { display: grid; gap: 10px; }
     .opt {
-      display: flex; gap: 9px; align-items: flex-start; cursor: pointer; font-size: 12.5px;
-      border: 1px solid var(--line-ink); border-radius: var(--radius); padding: 10px 11px; background: var(--paper-bright);
+      display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-size: 12.5px; line-height: 1.5;
+      border: 1px solid var(--line-ink); border-radius: var(--radius); padding: 12px 14px; background: var(--paper-bright);
     }
     .opt:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line-ink)); }
     .opt input { margin-top: 2px; accent-color: var(--accent); }
     .opt.chosen { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
     .opt .opt-label { font-weight: 500; }
     .opt-why {
-      margin-top: 12px; font-size: 12.5px; border-left: 3px solid var(--accent);
-      background: var(--paper-bright); border-radius: var(--radius); padding: 10px 12px;
+      margin-top: 14px; font-size: 12.5px; line-height: 1.55; border-left: 3px solid var(--accent);
+      background: var(--paper-bright); border-radius: var(--radius); padding: 12px 14px;
     }
     .opt-why.best { border-left-color: var(--green); }
     .opt-why.solid { border-left-color: var(--amber); }
     .opt-why.weak { border-left-color: var(--rust); }
     .opt-why .vtag { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; display: inline-block; margin-bottom: 4px; }
     .vtag.best { color: var(--green); } .vtag.solid { color: var(--amber); } .vtag.weak { color: var(--rust); }
-    .justify { margin-top: 14px; }
-    .justify label { font-size: 12px; color: var(--ink-soft); display: block; margin-bottom: 5px; }
+    .justify { margin-top: 16px; }
+    .justify label { font-size: 12px; color: var(--ink-soft); display: block; margin-bottom: 6px; }
     .justify textarea {
       width: 100%; min-height: 80px; resize: vertical; font-family: var(--sans); font-size: 12.5px;
-      background: var(--paper-bright); color: var(--ink); border: 1px solid var(--line-ink); border-radius: var(--radius); padding: 9px;
+      background: var(--paper-bright); color: var(--ink); border: 1px solid var(--line-ink); border-radius: var(--radius); padding: 10px 12px;
     }
-    .must { margin-top: 10px; display: grid; gap: 4px; }
+    .must { margin-top: 14px; display: grid; gap: 6px; }
     .must-item { font-size: 11.5px; color: var(--ink-soft); }
     .must-item::before { content: "\25CB "; color: var(--ink-faint); }
 
-    .rubric-out { display: grid; gap: 6px; margin-top: 12px; }
+    .rubric-out { display: grid; gap: 8px; margin-top: 14px; }
     .rubric-item { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; }
     .rubric-item .mk { font-family: var(--mono); font-weight: 700; }
     .rubric-item.pass .mk { color: var(--green); }
