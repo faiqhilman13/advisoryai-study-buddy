@@ -453,7 +453,7 @@
 
     .hero {
       border-bottom: 1px solid var(--line-desk);
-      padding: 4px 0 38px;
+      padding: 2px 0 18px;
     }
 
     .hero-top {
@@ -468,8 +468,8 @@
     h1 {
       font-family: var(--display);
       font-weight: 500;
-      font-size: clamp(38px, 5vw, 72px);
-      line-height: 0.98;
+      font-size: clamp(26px, 3vw, 40px);
+      line-height: 1;
       letter-spacing: -0.03em;
       max-width: 920px;
       color: var(--desk-ink-bright);
@@ -483,9 +483,10 @@
     }
 
     .lede {
-      max-width: 740px;
-      font-size: 17px;
-      margin-top: 20px;
+      max-width: 700px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      margin-top: 10px;
       color: rgba(var(--desk-ink-rgb), 0.68);
       animation: rise 0.55s 0.22s both;
     }
@@ -498,19 +499,26 @@
       margin-top: 26px;
     }
 
-    .hero .controls { animation: rise 0.55s 0.3s both; }
+    .hero .controls { animation: rise 0.55s 0.3s both; margin-top: 14px; }
+
+    .hero .ghost,
+    .hero .primary {
+      min-height: 32px;
+      padding: 6px 13px;
+      font-size: 10.5px;
+    }
 
     .progress-wrap {
-      margin-top: 22px;
+      margin-top: 12px;
       display: grid;
-      gap: 8px;
-      max-width: 640px;
+      gap: 6px;
+      max-width: 700px;
       animation: rise 0.55s 0.38s both;
     }
 
     .progress-wrap .small {
       font-family: var(--mono);
-      font-size: 10.5px;
+      font-size: 9.5px;
       text-transform: uppercase;
       letter-spacing: 0.2em;
       opacity: 0.6;
@@ -542,33 +550,37 @@
       transition: width 0.35s ease;
     }
 
-    .domain-bars { display: grid; gap: 7px; }
+    .domain-bars {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px 24px;
+    }
 
     .domain-row {
       display: grid;
-      grid-template-columns: minmax(96px, 150px) 1fr 48px;
+      grid-template-columns: minmax(84px, 118px) 1fr 40px;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .domain-row .domain-label {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 9px;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       opacity: 0.75;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .domain-row .progress-bar { height: 9px; }
+    .domain-row .progress-bar { height: 7px; }
 
     .domain-row .progress-fill { background: var(--bar, #5f7dfb); }
 
     .domain-row .domain-count {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 9px;
       opacity: 0.6;
       text-align: right;
       font-variant-numeric: tabular-nums;
@@ -576,7 +588,7 @@
 
     .hero-stamp {
       flex: none;
-      width: min(280px, 30vw);
+      width: min(170px, 20vw);
       color: var(--accent);
       opacity: 0.92;
       animation: stampIn 0.55s 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both;
@@ -1435,7 +1447,8 @@
     @media (max-width: 720px) {
       main { padding: 20px 16px; }
       .hero-top { display: block; }
-      .hero-stamp { width: 170px; margin: 24px auto 0; }
+      .hero-stamp { width: 130px; margin: 16px auto 0; }
+      .domain-bars { grid-template-columns: 1fr; }
       nav { grid-template-columns: 1fr 1fr; }
       .section-head { display: block; }
       .section-head .controls { margin-top: 14px !important; }
