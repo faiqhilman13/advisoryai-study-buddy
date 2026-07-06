@@ -1602,7 +1602,7 @@
         <div class="mark">AI</div>
         <div>
           <h2>AI Engineer Field Deck</h2>
-          <p class="small">Active recall for founding and senior AI engineer interviews - the 80/20 of building with LLMs in production, kept current with frontier-lab practice.</p>
+          <p class="small">Active recall for founding and senior AI engineer interviews - the 80/20 of building with LLMs in production, plus the classic system-design canon.</p>
         </div>
       </div>
 
@@ -1613,8 +1613,8 @@
         <button data-view="match">Match <span id="matchCount">0</span></button>
         <button data-view="blank">Blanks <span id="blankCount">0</span></button>
         <button data-view="mcq">MCQ <span id="mcqCount">0</span></button>
-        <button data-view="products">Map <span>14</span></button>
-        <button data-view="sources">Sources <span>22</span></button>
+        <button data-view="products">Map <span>18</span></button>
+        <button data-view="sources">Sources <span>23</span></button>
       </nav>
 
       <button class="theme-toggle" id="themeToggle" aria-pressed="false">Light mode</button>
@@ -1883,6 +1883,7 @@
   </div>
 
   <script src="challenges.js"></script>
+  <script src="systems.js"></script>
   <script>
     const TOPIC_COLOR = {
       Reliability: "var(--teal)", Idempotency: "var(--green)", Observability: "var(--blue)",
@@ -1895,7 +1896,12 @@
       "Context Eng": "var(--amber)", "Multi-Agent": "var(--rust)", MCP: "var(--teal)",
       Memory: "var(--green)", Inference: "var(--blue)", "Fine-tuning": "var(--violet)",
       Frontier: "var(--violet)", Governance: "var(--amber)", "Product Sense": "var(--green)",
-      Cost: "var(--green)"
+      Cost: "var(--green)",
+      Scalability: "var(--blue)", CAP: "var(--violet)", Consistency: "var(--teal)",
+      Availability: "var(--green)", "SQL Scaling": "var(--blue)", NoSQL: "var(--violet)",
+      Sharding: "var(--amber)", Caching: "var(--green)", DNS: "var(--teal)",
+      CDN: "var(--amber)", "Load Balancing": "var(--blue)", Protocols: "var(--rust)",
+      Async: "var(--violet)", "Classic Builds": "var(--accent)"
     };
 
     const MASTERY_DOMAINS = [
@@ -1905,7 +1911,11 @@
       { name: "Evals & Reliability", color: "#a48dff", topics: ["Evals", "Metrics", "Observability", "Reliability", "Idempotency"] },
       { name: "Models & Inference", color: "#6b9eff", topics: ["Inference", "Fine-tuning", "Frontier", "Cost"] },
       { name: "Product Suite", color: "#39c7b4", topics: ["ASR", "Notetaker", "Drafter", "Checker", "Copilot"] },
-      { name: "Founder Craft", color: "#3fbe7e", topics: ["Founder Mode", "Architecture", "Launch Plan", "Incident", "Product Sense"] }
+      { name: "Founder Craft", color: "#3fbe7e", topics: ["Founder Mode", "Architecture", "Launch Plan", "Incident", "Product Sense"] },
+      { name: "Systems Fundamentals", color: "#5b8def", topics: ["Scalability", "CAP", "Consistency", "Availability"] },
+      { name: "Data & Storage", color: "#dd9a3c", topics: ["SQL Scaling", "NoSQL", "Sharding", "Caching"] },
+      { name: "Networking & Delivery", color: "#3cb9a7", topics: ["DNS", "CDN", "Load Balancing", "Protocols", "Async"] },
+      { name: "Classic Builds", color: "#b57bee", topics: ["Classic Builds"] }
     ];
     const DOMAIN_OF = {};
     MASTERY_DOMAINS.forEach(domain => domain.topics.forEach(topic => { DOMAIN_OF[topic] = domain.name; }));
@@ -3200,6 +3210,34 @@
         scope: "Build vs buy, risk-tiered shipping, unit economics, eval-driven development, the paved-road platform.",
         risks: "Demo-driven roadmaps, unknown cost per task, gates that tax instead of accelerate.",
         control: "Time to flagged beta, cost per successful task, incident rate by tier, feature win rate."
+      },
+      {
+        name: "Systems fundamentals",
+        topic: "Scalability",
+        scope: "Performance vs scalability, latency vs throughput, CAP, consistency and availability patterns, fail-over, replication.",
+        risks: "Consistency levels chosen by default, fail-over data loss, one design for wildly different read:write ratios.",
+        control: "p95/p99 under load, replication lag, RTO/RPO from failover drills, stale-read rate."
+      },
+      {
+        name: "Data & storage",
+        topic: "Sharding",
+        scope: "The RDBMS scaling ladder (replication, federation, sharding, denormalization, SQL tuning), NoSQL flavors, cache strategies.",
+        risks: "Sharding before caching, hot shards, cross-shard joins, BASE where the product needs ACID.",
+        control: "Per-shard load skew, slow-query log volume, cache hit rate, join cost on hot read paths."
+      },
+      {
+        name: "Networking & delivery",
+        topic: "Load Balancing",
+        scope: "DNS, push/pull CDNs, L4 vs L7 load balancing, reverse proxies, message queues and back pressure, TCP/UDP, REST/RPC.",
+        risks: "Stateful servers behind load balancers, missing health checks, unbounded queues, RPC-shaped public APIs.",
+        control: "Health-check flap rate, queue depth and oldest-job age, CDN edge hit ratio, p99 per hop."
+      },
+      {
+        name: "Classic builds",
+        topic: "Classic Builds",
+        scope: "The 8 canonical interview builds: Pastebin, Twitter timeline & search, web crawler, Mint, social graph, query cache, sales rank, scaling on AWS.",
+        risks: "Architecture before constraints, skipping the back-of-envelope math, celebrity/hot-key blind spots.",
+        control: "Constraints and usage math stated first, one bottleneck fixed at a time, every choice narrated as a tradeoff."
       }
     ];
 
@@ -3225,8 +3263,17 @@
       ["OpenTelemetry - GenAI semantic conventions", "https://opentelemetry.io/docs/specs/semconv/gen-ai/", "Standard span attributes for model calls, tools, and agent steps in the observability items."],
       ["Hamel Husain - evals field guide", "https://hamel.dev/blog/posts/evals/", "Error analysis first, binary rubrics, and the judge-calibration workflow."],
       ["DeepEval - LLM-as-a-judge guide", "https://deepeval.com/guides/guides-llm-as-a-judge", "Judge bias catalogue and calibration targets referenced in the eval items."],
-      ["Pragmatic Engineer - a pragmatic guide to evals", "https://newsletter.pragmaticengineer.com/p/evals", "How industry teams wire offline and online evals into shipping."]
+      ["Pragmatic Engineer - a pragmatic guide to evals", "https://newsletter.pragmaticengineer.com/p/evals", "How industry teams wire offline and online evals into shipping."],
+      ["The System Design Primer (Donne Martin)", "https://github.com/donnemartin/system-design-primer", "The classic-systems deck: the repo's Anki cards converted into flash/match/blank/MCQ items, and its 8 worked interview questions rebuilt as stage-based design challenges. Licensed CC BY 4.0."]
     ];
+
+    // Classic system-design deck (systems.js → window.SYSTEMS_DECK), appended AFTER the
+    // AI items so existing f:/b:/q: mastery indexes keep pointing at the same cards.
+    const SYSTEMS = window.SYSTEMS_DECK || {};
+    FLASH.push(...(SYSTEMS.flash || []));
+    MATCH.push(...(SYSTEMS.match || []));
+    BLANKS.push(...(SYSTEMS.blanks || []));
+    MCQ.push(...(SYSTEMS.mcq || []));
 
     function loadChallenges() {
       // Content data layer: design challenges live in challenges.js (window.CHALLENGE_DB), loaded via <script src>.
